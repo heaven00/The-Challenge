@@ -1,4 +1,8 @@
 # Django settings for SocialSearch project.
+import os
+from mongoengine import connect
+PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))[:-12]
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -10,17 +14,17 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DBNAME = 'socialapp1'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+connect(DBNAME)
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#        'NAME': '',                      # Or path to database file if using sqlite3.
+#        'USER': '',                      # Not used with sqlite3.
+#        'PASSWORD': '',                  # Not used with sqlite3.
+#        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+#        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+#    }
+#}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -110,23 +114,26 @@ ROOT_URLCONF = 'SocialSearch.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'SocialSearch.wsgi.application'
 
-TEMPLATE_DIRS = (
+
+TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT,'web/templates/')
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
 #Adding mongoengine authentication and session engine
+
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
 )
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
 
+# Commenting django.contrib.sites to integrate mongoengine
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
