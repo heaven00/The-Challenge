@@ -9,6 +9,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DBNAME = 'socialapp1'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -80,6 +82,12 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'tr7img*sc60*o6t995&amp;0z+(^+#90q%d)qa_@@y5esbr(_05u+a'
 
+#adding Email Details for email functionality
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jayant746@gmail.com'
+EMAIL_HOST_PASSWORD = 'hjsddwhjyqeyknrw'
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -107,6 +115,12 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+#Adding mongoengine authentication and session engine
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+SESSION_ENGINE = 'mongoengine.django.sessions'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
