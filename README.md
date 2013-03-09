@@ -28,11 +28,12 @@ The structure I am thinking would be Post embeded in User and a listfield 'comme
 in posts and also another embedded list document in Post, File which will have the uploaded files and details like file type, file name included in it.
 
 {
- User
-	{
-	Post[comments]
+ Post
+ post-details
+ ReferenceField(User)
+	[{comments}]
 	[{File}]
-	}
+	
 }
 
 Lets start with the workflow.
