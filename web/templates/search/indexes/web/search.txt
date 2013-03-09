@@ -1,0 +1,4 @@
+{{ object.body }}
+{{ object.content }}
+{{ object.post_id }}
+{{ object.id }}

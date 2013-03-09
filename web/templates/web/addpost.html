@@ -1,0 +1,17 @@
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<h3>Add Post</h3>
+<table>
+{{form.user}}
+<tr>
+	<td>Body</td>
+	<td>{{form.body}}</td>
+</tr>
+<tr>
+	<td>Upload File</td>
+	<td><input type="file" name="file" id="file" /></td>
+</tr>
+<tr>{{form.erros}}</tr>
+</table>
+<input type="submit" name="submit" value="Add">
+</form>

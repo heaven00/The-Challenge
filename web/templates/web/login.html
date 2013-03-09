@@ -1,0 +1,10 @@
+<form method = "POST">
+{% csrf_token %}
+<table>
+<tr><td>Login</td><td>{{form.username}}</td></tr>
+<tr><td>Password</td><td>{{form.password}}</td></tr>
+<tr><td></td><td>{{form.errors}}</td></tr>
+<tr><td><input type="submit" name="submit" value="submit"></td>
+<td><a href='/user/signup/'><input type="button" name="signup" value="signup"></a><td></tr>
+</table>
+</form>

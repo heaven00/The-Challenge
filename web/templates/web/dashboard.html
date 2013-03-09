@@ -1,0 +1,24 @@
+<div>Welcome {{username}}</div>
+
+<a href="/user/{{username}}/dashboard/add_post"><input type="button" name="add_post" value="Add Post"></a>
+<a href="/user/{{username}}/dashboard/search/"><input type="button" name="search_post" value="Search Post"></a>
+<table>
+<div><h3>Feed</h3>{% for post in posts %}</div>
+	<tr><table> <tr> <h4>Post</h4></tr>
+				<tr><td>{{post.user}}</td><td>{{post.body}}</td></tr>
+				
+				<tr><form method = "POST">
+				    {% csrf_token %}
+				<td>{% for comment in post.comment %}Comments</td>
+				</tr>
+				<tr><td>{{comment.user}}</td>
+					<td>{{comment.body}}</td>
+					{% endfor %}
+				</tr>
+				<tr><td>{{form.body}}</td><td><input type='submit' name='comment' value={{post.post_id}}></td></tr>
+				</form>
+		</table>	
+	</tr>
+	{% endfor %}
+	
+</table>		
