@@ -1,6 +1,6 @@
 """All the forms for the controller will be here"""
 from django import forms
-from mongoengine.django.auth import User
+from mongoengine.django.auth import User, MongoEngineBackend
 from functions import hybrid_authentication
 from SocialSearch.settings import ALLOWED_FILE_TYPES, UPLOAD_MAX_SIZE
 from document import Post
@@ -73,10 +73,10 @@ class AuthenticationForm(forms.Form):
     """
     error_messages = {
         'Incorrect_credentials':"Please enter a correct username and password.",
-                      }
+        'Missing_Credential':"Username/Password missing"
+                  }
     
-    username = forms.CharField(label="Username",
-                               widget=forms.CharField)
+    username = forms.CharField(label="Username")
     password = forms.CharField(label="Password",
                                widget=forms.PasswordInput)
     
@@ -84,12 +84,14 @@ class AuthenticationForm(forms.Form):
     def clean(self):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
-        
-        user = hybrid_authentication(username, password)
-        if user is None:
-            raise forms.ValidationError(self.error_messages['Incorrect_credentials'])
+        if username and password:
+            user = hybrid_authentication(username, password)
+            if user is None:
+                raise forms.ValidationError(self.error_messages['Incorrect_credentials'])
+            else:
+                return user
         else:
-            return user 
+            raise forms.ValidationError(self.error_messages['Missing_Credential']) 
         
         
         
@@ -103,14 +105,11 @@ class PostCreationForm(forms.Form):
                       'File_size_exceeded':"The File Size Limit has exceeded",
                       }
     
-    user = forms.HiddenInput(label="User",
-                             widget=forms.HiddenInput)
-    body = forms.Textarea(label="Content",
+    user = forms.CharField(label="User", 
+                           widget=forms.HiddenInput)
+    body = forms.CharField(label="Content",
                           widget=forms.Textarea)    
-    file = forms.FileField(label="File",
-                           widget=forms.FileInput,
-                           help_text="You can Upload only Doc/Docx/PDF files")
-    
+    file = forms.FileField(label="File")    
     def clean_user(self):
         username = self.cleaned_data["user"]
         if username:
@@ -145,5 +144,11 @@ class PostCreationForm(forms.Form):
         fs.save(self.cleaned_data['file'].name, self.cleaned_data['file'])
         post.file = self.cleaned_data['file']
         post.save()
-
         
+        
+class CommentForm(forms.Form):
+    """
+    A form that accepts comments
+    """
+    body = forms.CharField(label='body',
+                              widget=forms.Textarea)

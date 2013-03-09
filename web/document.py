@@ -10,16 +10,20 @@ class File(EmbeddedDocument):
 	
 class Comment(EmbeddedDocument):
 	body = fields.StringField()	
+	user = fields.ReferenceField(User)
+	
+def autoincrement():
+	number = int(Post.objects().count()) + 1
+	print number
+	return number
+	
 	
 class Post(Document):
-	post_id = fields.IntField(default='autoincrement')
+	post_id = fields.IntField(default=autoincrement)
 	user = fields.ReferenceField(User)
 	body = fields.StringField()
-	comment = fields.ListField(fields.EmbeddedDocument(Comment))
-	file = fields.EmbeddedDocument(File)
+	comment = fields.ListField(fields.EmbeddedDocumentField(Comment))
+	file = fields.EmbeddedDocumentField(File)
 
-	def autoincrement(self):
-		number = self.all().count() + 1
-		return number
-	
+
 	
