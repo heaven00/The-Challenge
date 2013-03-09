@@ -137,11 +137,21 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
+    'mongoengine',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+print os.path.join(PROJECT_ROOT, 'search')
+#Adding Haysatck configuration
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PROJECT_ROOT, 'search'),
+    },
+}
 #Adding Variables and settings for file upload
 
 ALLOWED_FILE_TYPES = ['doc','pdf','docx']
