@@ -39,8 +39,10 @@ def login(request):
 		return render_to_response('web/login.html', RequestContext(request,context))
 	elif request.method == 'POST':
 		form = AuthenticationForm(request.POST)
-		if form.is_valid():	
-			url = '/user/'+request.POST['username']+'/dashboard/'
+		if form.is_valid():
+			username = request.POST['username']	
+			url = '/user/'+username+'/dashboard/'
+			print url
 			return redirect(url)
 		else:
 			context['form'] = form

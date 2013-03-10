@@ -8,5 +8,5 @@ urlpatterns = patterns('',
                        url('^(?P<user>\w[\w/-]*)/dashboard/$',dashboard),
                        url('^(?P<user>\w[\w/-]*)/dashboard/add_post/$',post_handler),
                        url('^(?P<user>\w[\w/-]*)/dashboard/(?P<post_id>\w[\w/-]*)/edit/$',post_handler),
-                       url(r'^(?P<user>)\w[\w/-]*)/dashboard/search/', include('haystack.urls')),
+                       url('^search/',include('haystack.urls')),
                        )

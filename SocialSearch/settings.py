@@ -149,7 +149,7 @@ print os.path.join(PROJECT_ROOT, 'search')
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(PROJECT_ROOT, 'search'),
+        'PATH': os.path.join(PROJECT_ROOT, 'search/'),
     },
 }
 #Adding Variables and settings for file upload
