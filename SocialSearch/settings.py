@@ -4,7 +4,7 @@ from mongoengine import connect
 PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))[:-12]
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
