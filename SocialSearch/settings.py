@@ -144,12 +144,11 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
-print os.path.join(PROJECT_ROOT, 'search')
 #Adding Haysatck configuration
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(PROJECT_ROOT, 'search/'),
+        'PATH': os.path.join(PROJECT_ROOT, 'search'),
     },
 }
 #Adding Variables and settings for file upload
